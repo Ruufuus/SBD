@@ -8,7 +8,7 @@ if :new.chapter_id is null then
     :new.chapter_id:=seq_chapter_id.NEXTVAL;
 end if;
 END;
-
+/
 CREATE OR REPLACE TRIGGER trig_volume_id
 BEFORE
 INSERT on Volume
@@ -19,7 +19,7 @@ if :new.volume_id is null then
     :new.volume_id:=seq_volume_id.NEXTVAL;
 end if;
 END;
-
+/
 CREATE OR REPLACE TRIGGER trig_episode_id
 BEFORE
 INSERT on Episode
@@ -30,7 +30,7 @@ if :new.ep_id is null then
     :new.ep_id:=seq_episode_id.NEXTVAL;
 end if;
 END;
-
+/
 CREATE OR REPLACE TRIGGER trig_author_id
 BEFORE
 INSERT on Author
@@ -41,7 +41,7 @@ if :new.author_id is null then
     :new.author_id:=seq_author_id.NEXTVAL;
 end if;
 END;
-
+/
 CREATE OR REPLACE TRIGGER trig_ilustrator_id
 BEFORE
 INSERT on Ilustrator
@@ -52,7 +52,7 @@ if :new.ilustrator_id is null then
     :new.ilustrator_id:=seq_ilustrator_id.NEXTVAL;
 end if;
 END;
-
+/
 CREATE OR REPLACE TRIGGER trig_medium_id
 BEFORE
 INSERT on Medium
