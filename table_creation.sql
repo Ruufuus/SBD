@@ -97,9 +97,9 @@ CONSTRAINT user_pk PRIMARY KEY (username)
 CREATE TABLE review(
 review_date DATE DEFAULT SYSDATE NOT NULL,
 review_content VARCHAR(2048) NOT NULL,
-medium_id NUMBER(10),
+medium_id NUMBER(10) NOT NULL,
 username VARCHAR(256) NOT NULL,
-CONSTRAINT review_pk PRIMARY KEY (review_date, review_content),
+CONSTRAINT review_pk PRIMARY KEY (review_date, medium_id,username),
 CONSTRAINT fk_review_medium_id FOREIGN KEY (medium_id) REFERENCES Medium(ID) ON DELETE CASCADE,
 CONSTRAINT fk_review_username FOREIGN KEY (username) REFERENCES user_info(username) ON DELETE CASCADE
 );
@@ -107,7 +107,7 @@ CONSTRAINT fk_review_username FOREIGN KEY (username) REFERENCES user_info(userna
 
 CREATE TABLE consumed_media(
 consume_date DATE DEFAULT SYSDATE NOT NULL,
-medium_id NUMBER(10),
+medium_id NUMBER(10) NOT NULL,
 username VARCHAR(256) NOT NULL,
 CONSTRAINT consumed_media_pk PRIMARY KEY (consume_date, medium_id, username),
 CONSTRAINT fk_consumed_media_medium_id FOREIGN KEY (medium_id) REFERENCES Medium(ID) ON DELETE CASCADE,
