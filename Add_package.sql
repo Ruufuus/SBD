@@ -75,7 +75,7 @@ pmedium_id consumed_media.medium_id%type,
 pusername consumed_media.username%type
 );
 END add_package;
-
+/
 CREATE OR REPLACE PACKAGE BODY add_package IS
 PROCEDURE add_Manga
 (
