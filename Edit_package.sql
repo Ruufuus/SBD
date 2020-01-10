@@ -48,11 +48,6 @@ ptitle Episode.title%type,
 pepisode_duration Episode.episode_duration%type default null,
 pmedium_id Episode.medium_id%type
 );
-PROCEDURE edit_Studio
-(
-pname Studio.name%type,
-pnew_name Studio.name%type
-);
 PROCEDURE edit_Ilustrator
 (
 pilustrator_id Ilustrator.ilustrator_id%type,
@@ -180,17 +175,6 @@ IS BEGIN
 	pep_id=ep_id;
 END;
 
-PROCEDURE edit_Studio
-(
-pname Studio.name%type,
-pnew_name Studio.name%type
-)
-IS BEGIN 
-    update Studio SET
-    name=pnew_name
-	where
-	pname = name;
-END;
 
 PROCEDURE edit_Ilustrator
 (
