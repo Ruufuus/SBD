@@ -88,7 +88,7 @@ IS BEGIN
     publishing_type=ppublishing_type,
     published_date=ppublished_date
 	WHERE
-	id=pid;
+	id=pid AND medium.medium="Manga";
 END;
 
 PROCEDURE edit_Anime
@@ -108,7 +108,7 @@ IS BEGIN
     episodes=pepisodes,
     type=ptype
 	WHERE
-	id=pid;
+	id=pid AND medium.medium="Anime";
 END;
 
 PROCEDURE edit_Light_Novel
@@ -128,7 +128,7 @@ IS BEGIN
     volumes=pvolumes,
     published_date=ppublished_date
 	where
-	id=pid;
+	id=pid AND medium.medium="Light Novel";
 END;
 
 PROCEDURE edit_Volume
