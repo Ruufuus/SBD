@@ -4,7 +4,6 @@ PROCEDURE add_Manga
 ptitle Medium.title%type,
 pauthor_id Medium.author_id%type,
 pgenre Medium.genre%type default null,
-pmedium Medium.medium%type default null,
 pvolumes Medium.volumes%type default null,
 pchapters Medium.chapters%type default null,
 ppublishing_type Medium.publishing_type%type default null,
@@ -16,7 +15,6 @@ PROCEDURE add_Anime
 ptitle Medium.title%type,
 pstudio_name Medium.studio_name%type,
 pgenre Medium.genre%type default null,
-pmedium Medium.medium%type default null,
 pepisodes Medium.episodes%type default null,
 ptype Medium.type%type default null
 );
@@ -25,7 +23,6 @@ PROCEDURE add_Light_Novel
 ptitle Medium.title%type,
 pauthor_id Medium.author_id%type,
 pgenre Medium.genre%type default null,
-pmedium Medium.medium%type default null,
 pvolumes Medium.volumes%type default null,
 ppublished_date Medium.published_date%type default null
 );
@@ -88,7 +85,6 @@ PROCEDURE add_Manga
 ptitle Medium.title%type,
 pauthor_id Medium.author_id%type,
 pgenre Medium.genre%type default null,
-pmedium Medium.medium%type default null,
 pvolumes Medium.volumes%type default null,
 pchapters Medium.chapters%type default null,
 ppublishing_type Medium.publishing_type%type default null,
@@ -102,7 +98,7 @@ IS BEGIN
     published_date
     )
     VALUES
-    (ptitle,pauthor_id,pgenre,pmedium,
+    (ptitle,pauthor_id,pgenre,'Manga',
     pvolumes,pchapters,ppublishing_type,
     ppublished_date);
 END;
@@ -112,7 +108,6 @@ PROCEDURE add_Anime
 ptitle Medium.title%type,
 pstudio_name Medium.studio_name%type,
 pgenre Medium.genre%type default null,
-pmedium Medium.medium%type default null,
 pepisodes Medium.episodes%type default null,
 ptype Medium.type%type default null
 )
@@ -122,7 +117,7 @@ IS BEGIN
     episodes,type
     )
     VALUES
-    (ptitle,pstudio_name,pgenre,pmedium,
+    (ptitle,pstudio_name,pgenre,'Anime',
     pepisodes,ptype);
 END;
 
@@ -131,7 +126,6 @@ PROCEDURE add_Light_Novel
 ptitle Medium.title%type,
 pauthor_id Medium.author_id%type,
 pgenre Medium.genre%type default null,
-pmedium Medium.medium%type default null,
 pvolumes Medium.volumes%type default null,
 ppublished_date Medium.published_date%type default null
 )
@@ -141,7 +135,7 @@ IS BEGIN
     volumes,published_date
     )
     VALUES
-    (ptitle,pauthor_id,pgenre,pmedium,
+    (ptitle,pauthor_id,pgenre,'Light Novel',
     pvolumes,ppublished_date);
 END;
 
