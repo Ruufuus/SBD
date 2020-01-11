@@ -2,6 +2,7 @@ CREATE OR REPLACE PACKAGE edit_package IS
 PROCEDURE edit_Manga
 (
 pid Medium.id%type,
+pmedium Medium.medium%type,
 ptitle Medium.title%type,
 pauthor_id Medium.author_id%type,
 pgenre Medium.genre%type default null,
@@ -14,6 +15,7 @@ pilustrator_id Medium.ilustrator_id%type default null
 PROCEDURE edit_Anime
 (
 pid Medium.id%type,
+pmedium Medium.medium%type,
 ptitle Medium.title%type,
 pstudio_name Medium.studio_name%type,
 pgenre Medium.genre%type default null,
@@ -23,6 +25,7 @@ ptype Medium.type%type default null
 PROCEDURE edit_Light_Novel
 (
 pid Medium.id%type,
+pmedium Medium.medium%type,
 ptitle Medium.title%type,
 pauthor_id Medium.author_id%type,
 pgenre Medium.genre%type default null,
@@ -69,6 +72,7 @@ CREATE OR REPLACE PACKAGE BODY edit_package IS
 PROCEDURE edit_Manga
 (
 pid Medium.id%type,
+pmedium Medium.medium%type,
 ptitle Medium.title%type,
 pauthor_id Medium.author_id%type,
 pgenre Medium.genre%type default null,
@@ -88,12 +92,13 @@ IS BEGIN
     publishing_type=ppublishing_type,
     published_date=ppublished_date
 	WHERE
-	id=pid AND medium.medium="Manga";
+	id=pid AND medium.medium=pmedium;
 END;
 
 PROCEDURE edit_Anime
 (
 pid Medium.id%type,
+pmedium Medium.medium%type,
 ptitle Medium.title%type,
 pstudio_name Medium.studio_name%type,
 pgenre Medium.genre%type default null,
@@ -108,12 +113,13 @@ IS BEGIN
     episodes=pepisodes,
     type=ptype
 	WHERE
-	id=pid AND medium.medium="Anime";
+	id=pid AND medium.medium=pmedium;
 END;
 
 PROCEDURE edit_Light_Novel
 (
 pid Medium.id%type,
+pmedium Medium.medium%type,
 ptitle Medium.title%type,
 pauthor_id Medium.author_id%type,
 pgenre Medium.genre%type default null,
@@ -128,7 +134,7 @@ IS BEGIN
     volumes=pvolumes,
     published_date=ppublished_date
 	where
-	id=pid AND medium.medium="Light Novel";
+	id=pid AND medium.medium=pmedium;
 END;
 
 PROCEDURE edit_Volume
