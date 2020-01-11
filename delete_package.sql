@@ -45,7 +45,7 @@ pid Medium.id%type
 IS BEGIN 
     DELETE FROM MEDIUM
 	WHERE
-	id=pid;
+	id=pid AND medium.medium="Manga";;
 END;
 
 PROCEDURE delete_Anime
@@ -55,7 +55,7 @@ pid Medium.id%type
 IS BEGIN 
     DELETE FROM MEDIUM 
 	WHERE
-	id=pid;
+	id=pid AND medium.medium="Anime";;
 END;
 
 PROCEDURE delete_Light_Novel
@@ -65,7 +65,7 @@ pid Medium.id%type
 IS BEGIN 
     DELETE FROM MEDIUM 
 	where
-	id=pid;
+	id=pid AND medium.medium="Light Novel";
 END;
 
 PROCEDURE delete_Volume
