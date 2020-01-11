@@ -1,46 +1,46 @@
 CREATE OR REPLACE PACKAGE delete_package IS
 PROCEDURE delete_Manga
 (
-pid Medium.id%type,
+pid Medium.id%type
 );
 PROCEDURE delete_Anime
 (
-pid Medium.id%type,
+pid Medium.id%type
 );
 PROCEDURE delete_Light_Novel
 (
-pid Medium.id%type,
+pid Medium.id%type
 );
 PROCEDURE delete_Volume
 (
-pvolume_id Volume.volume_id%type,
+pvolume_id Volume.volume_id%type
 );
 PROCEDURE delete_Chapter
 (
-pchapter_id Chapter.chapter_id%type,
+pchapter_id Chapter.chapter_id%type
 );
 PROCEDURE delete_Episode
 (
-pep_id Episode.ep_id%type,
+pep_id Episode.ep_id%type
 );
 PROCEDURE delete_Ilustrator
 (
-pilustrator_id Ilustrator.ilustrator_id%type,
+pilustrator_id Ilustrator.ilustrator_id%type
 );
 PROCEDURE delete_author
 (
-pauthor_id Author.author_id%type,
+pauthor_id Author.author_id%type
 );
 PROCEDURE delete_studio
 (
-pname Studio.name%type,
+pname Studio.name%type
 );
 END delete_package;
 /
 CREATE OR REPLACE PACKAGE BODY delete_package IS
 PROCEDURE delete_Manga
 (
-pid Medium.id%type,
+pid Medium.id%type
 )
 IS BEGIN 
     DELETE FROM MEDIUM
@@ -50,7 +50,7 @@ END;
 
 PROCEDURE delete_Anime
 (
-pid Medium.id%type,
+pid Medium.id%type
 )
 IS BEGIN 
     DELETE FROM MEDIUM 
@@ -60,7 +60,7 @@ END;
 
 PROCEDURE delete_Light_Novel
 (
-pid Medium.id%type,
+pid Medium.id%type
 )
 IS BEGIN 
     DELETE FROM MEDIUM 
@@ -70,7 +70,7 @@ END;
 
 PROCEDURE delete_Volume
 (
-pvolume_id Volume.volume_id%type,
+pvolume_id Volume.volume_id%type
 )
 IS BEGIN 
     DELETE FROM Volume 
@@ -80,9 +80,7 @@ END;
 
 PROCEDURE delete_Chapter
 (
-pchapter_id Chapter.chapter_id%type,
-ptitle Chapter.title%type,
-pvolume_id Chapter.volume_id%type
+pchapter_id Chapter.chapter_id%type
 )
 IS BEGIN 
     DELETE FROM Chapter 
@@ -92,7 +90,7 @@ END;
 
 PROCEDURE delete_Episode
 (
-pep_id Episode.ep_id%type,
+pep_id Episode.ep_id%type
 )
 IS BEGIN 
     DELETE FROM Episode 
@@ -103,7 +101,7 @@ END;
 
 PROCEDURE delete_Ilustrator
 (
-pilustrator_id Ilustrator.ilustrator_id%type,
+pilustrator_id Ilustrator.ilustrator_id%type
 )
 IS BEGIN 
     DELETE FROM Ilustrator 
@@ -113,7 +111,7 @@ END;
 
 PROCEDURE delete_author
 (
-pauthor_id Author.author_id%type,
+pauthor_id Author.author_id%type
 )
 IS BEGIN
 DELETE FROM Author 
@@ -123,7 +121,7 @@ END;
 
 PROCEDURE delete_studio
 (
-pname Studio.name%type,
+pname Studio.name%type
 )
 IS BEGIN
 DELETE FROM Studio 
