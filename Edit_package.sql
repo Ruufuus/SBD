@@ -66,6 +66,21 @@ pbirthdate Author.birthdate%type default null,
 pgender Author.gender%type default null
 );
 
+PROCEDURE edit_review
+(
+preview_date Review.Review_Date%type,
+preview_content Review.review_content%type,
+pmedium_id Review.medium_id%type,
+pusername Review.username%type
+);
+
+
+PROCEDURE edit_user_info
+(
+pusername user_info.username%type,
+ppassword user_info.password%type
+);
+
 END edit_package;
 /
 CREATE OR REPLACE PACKAGE BODY edit_package IS
@@ -212,4 +227,32 @@ UPDATE Author SET
 	WHERE
 	pauthor_id = author_id;
 END;
+
+PROCEDURE edit_review
+(
+preview_date Review.Review_Date%type,
+preview_content Review.review_content%type,
+pmedium_id Review.medium_id%type,
+pusername Review.username%type
+)
+IS BEGIN
+UPDATE review SET
+    review_content = preview_content
+	WHERE
+	username=pusername and review_date=preview_date and medium_id=pmedium_id;
+END;
+
+
+PROCEDURE edit_user_info
+(
+pusername user_info.username%type,
+ppassword user_info.password%type
+)
+IS BEGIN
+UPDATE user_info SET
+    password=ppassword
+	WHERE
+	username=pusername;
+END;
+
 END edit_package;
