@@ -1,15 +1,18 @@
 CREATE OR REPLACE PACKAGE delete_package IS
 PROCEDURE delete_Manga
 (
-pid Medium.id%type
+pid Medium.id%type,
+pmedium Medium.medium%type
 );
 PROCEDURE delete_Anime
 (
-pid Medium.id%type
+pid Medium.id%type,
+pmedium Medium.medium%type
 );
 PROCEDURE delete_Light_Novel
 (
-pid Medium.id%type
+pid Medium.id%type,
+pmedium Medium.medium%type
 );
 PROCEDURE delete_Volume
 (
@@ -40,32 +43,35 @@ END delete_package;
 CREATE OR REPLACE PACKAGE BODY delete_package IS
 PROCEDURE delete_Manga
 (
-pid Medium.id%type
+pid Medium.id%type,
+pmedium Medium.medium%type
 )
 IS BEGIN 
     DELETE FROM MEDIUM
 	WHERE
-	id=pid AND medium.medium="Manga";;
+	id=pid AND medium.medium=pmedium;
 END;
 
 PROCEDURE delete_Anime
 (
-pid Medium.id%type
+pid Medium.id%type,
+pmedium Medium.medium%type
 )
 IS BEGIN 
     DELETE FROM MEDIUM 
 	WHERE
-	id=pid AND medium.medium="Anime";;
+	id=pid AND medium.medium=pmedium;
 END;
 
 PROCEDURE delete_Light_Novel
 (
-pid Medium.id%type
+pid Medium.id%type,
+pmedium Medium.medium%type
 )
 IS BEGIN 
     DELETE FROM MEDIUM 
 	where
-	id=pid AND medium.medium="Light Novel";
+	id=pid AND medium.medium=pmedium;
 END;
 
 PROCEDURE delete_Volume
