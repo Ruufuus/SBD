@@ -74,6 +74,12 @@ pconsume_date consumed_media.consume_date%type,
 pmedium_id consumed_media.medium_id%type,
 pusername consumed_media.username%type
 );
+
+PROCEDURE add_user_info
+(
+pusername user_info.username%type,
+ppassword user_info.password%type
+);
 END add_package;
 /
 CREATE OR REPLACE PACKAGE BODY add_package IS
@@ -238,5 +244,17 @@ INSERT INTO consumed_media
     (consume_date,medium_id,username)
     values
     (pconsume_date,pmedium_id,pusername);
+END;
+
+PROCEDURE add_user_info
+(
+pusername user_info.username%type,
+ppassword user_info.password%type
+)
+IS BEGIN
+INSERT INTO USER_INFO
+    (username,password)
+    values
+    (pusername,ppassword);
 END;
 END add_package;
