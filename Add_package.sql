@@ -98,7 +98,7 @@ IS BEGIN
     published_date
     )
     VALUES
-    (ptitle,pauthor_id,pgenre,'Manga',
+    (ptitle,pauthor_id,pgenre,'MANGA',
     pvolumes,pchapters,ppublishing_type,
     ppublished_date);
 END;
@@ -117,7 +117,7 @@ IS BEGIN
     episodes,type
     )
     VALUES
-    (ptitle,pstudio_name,pgenre,'Anime',
+    (ptitle,pstudio_name,pgenre,'ANIME',
     pepisodes,ptype);
 END;
 
@@ -135,7 +135,7 @@ IS BEGIN
     volumes,published_date
     )
     VALUES
-    (ptitle,pauthor_id,pgenre,'Light Novel',
+    (ptitle,pauthor_id,pgenre,'LIGHT NOVEL',
     pvolumes,ppublished_date);
 END;
 
