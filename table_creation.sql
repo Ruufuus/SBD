@@ -55,7 +55,7 @@ CONSTRAINT chapters_number_constraint check (chapters is NULL OR chapters > 0),
 CONSTRAINT episodes_number_constraint check (episodes is NULL OR episodes > 0),
 CONSTRAINT anime_type_constraint check ((type in ('ONA','OVA','TV', 'MOVIE', 'SPECIAL') OR type is NULL)),
 CONSTRAINT medium_medium_constraint check (medium in ('ANIME','MANGA','LIGHT NOVEL')),
-CONSTRAINT medium_pk PRIMARY KEY (id),
+CONSTRAINT medium_pk PRIMARY KEY (id)
 );
 
 
