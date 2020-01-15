@@ -95,12 +95,12 @@ IS BEGIN
     INSERT INTO MEDIUM
     (title,author_id,genre,medium.medium,
     volumes,chapters,publishing_type,
-    published_date
+    published_date,ilustrator_id
     )
     VALUES
     (ptitle,pauthor_id,pgenre,'MANGA',
     pvolumes,pchapters,ppublishing_type,
-    ppublished_date);
+    ppublished_date,pilustrator_id);
 END;
 
 PROCEDURE add_Anime
