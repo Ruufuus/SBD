@@ -127,6 +127,6 @@ vTitle varchar(2);
 Begin 
 SELECT count(*) into vCzyIstnieje FROM chapter where title=:NEW.title and volume_id=:NEW.volume_id;
 if vCzyIstnieje>0 then
-    RAISE_APPLICATION_ERROR(-20001, 'Roździa o ponaje nazwie już istnieje dla danego Tomu!');
+    RAISE_APPLICATION_ERROR(-20001, 'Roździał o podanej nazwie już istnieje dla danego Tomu!');
 END IF;
 END;
