@@ -17,7 +17,7 @@ if vCzyIstnieje>0 then
     END IF;
 END IF;
 END;
-
+/
 CREATE OR REPLACE  TRIGGER author_validate_trigger
 before insert or update of name,surname on author 
 for each row
@@ -29,7 +29,7 @@ if vCzyIstnieje>0 then
     RAISE_APPLICATION_ERROR(-20001, 'Autor o podanym imieniu i nazwisku już istnieje w bazie danych!');
 END IF;
 END;
-
+/
 CREATE OR REPLACE  TRIGGER episode_validate_trigger
 before insert or update of title,medium_id on episode 
 for each row
@@ -41,7 +41,7 @@ if vCzyIstnieje>0 then
     RAISE_APPLICATION_ERROR(-20001, 'Odcinek o podanej nazwie dla danego anime już istnieje w bazie danych!');
 END IF;
 END;
-
+/
 CREATE OR REPLACE  TRIGGER ilustrator_validate_trigger
 before insert or update of name,surname on ilustrator 
 for each row
@@ -53,7 +53,7 @@ if vCzyIstnieje>0 then
     RAISE_APPLICATION_ERROR(-20001, 'Ilustrator o podanym imieniu i nazwisku już istnieje w bazie danych!');
 END IF;
 END;
-
+/
 CREATE OR REPLACE  TRIGGER studio_validate_trigger
 before insert or update of name on studio 
 for each row
@@ -65,7 +65,7 @@ if vCzyIstnieje>0 then
     RAISE_APPLICATION_ERROR(-20001, 'Studio o podanej nazwie już istnieje w bazie danych!');
 END IF;
 END;
-
+/
 CREATE OR REPLACE  TRIGGER review_validate_trigger
 before insert or update of review_date,medium_id,username on review 
 for each row
@@ -77,7 +77,7 @@ if vCzyIstnieje>0 then
     RAISE_APPLICATION_ERROR(-20001, 'Recenzja o podanej dacie, nazwie użytkownika oraz przypisanej do nich pozycji już istnieje w bazie danych!');
 END IF;
 END;
-
+/
 CREATE OR REPLACE  TRIGGER validate_user_info
 before insert or update of username on user_info 
 for each row
@@ -89,7 +89,7 @@ if vCzyIstnieje>0 then
     RAISE_APPLICATION_ERROR(-20001, 'Użytkownik o podanej nazwie użytkownika istnieje już w bazie danych!');
 END IF;
 END;
-
+/
 
 CREATE OR REPLACE  TRIGGER consumed_media_validate_trigger
 before insert or update of consume_date,medium_id,username on consumed_media 
@@ -102,7 +102,7 @@ if vCzyIstnieje>0 then
     RAISE_APPLICATION_ERROR(-20001, 'Obejrzana pozycja o podanej dacie, nazwie użytkownika oraz przypisanym do niego medium już istnieje w bazie danych!');
 END IF;
 END;
-
+/
 
 
 CREATE OR REPLACE  TRIGGER volume_validate_trigger
@@ -116,7 +116,7 @@ if vCzyIstnieje>0 then
     RAISE_APPLICATION_ERROR(-20001, 'Tom o podanym numerze oraz przypisanym do niego medium już istnieje w bazie danych!');
 END IF;
 END;
-
+/
 CREATE OR REPLACE  TRIGGER chapter_validate_trigger
 before insert or update of title on chapter 
 for each row
