@@ -33,9 +33,9 @@ END;
 CREATE OR REPLACE  TRIGGER author_name_validate_trigger
 before insert or update of name,surname on author 
 for each row
-WHEN(:NEW.name like [0-9])
 Declare
 Begin 
+IF (REGEXP_INSTR(:NEW.name, '[[:digit:]]')>0) then
 RAISE_APPLICATION_ERROR(-20001, 'Zły format imienia!');
 END IF;
 END;
@@ -43,9 +43,9 @@ END;
 CREATE OR REPLACE  TRIGGER author_surname_validate_trigger
 before insert or update of name,surname on author 
 for each row
-WHEN(:NEW.surname like [0-9])
 Declare
 Begin 
+IF (REGEXP_INSTR(:NEW.surname, '[[:digit:]]')>0) then
 RAISE_APPLICATION_ERROR(-20001, 'Zły format nazwiska!');
 END IF;
 END;
@@ -53,9 +53,9 @@ END;
 CREATE OR REPLACE  TRIGGER ilustrator_name_validate_trigger
 before insert or update of name,surname on ilustrator 
 for each row
-WHEN(:NEW.name like [0-9])
 Declare
 Begin 
+IF (REGEXP_INSTR(:NEW.name, '[[:digit:]]')>0) then
 RAISE_APPLICATION_ERROR(-20001, 'Zły format imienia!');
 END IF;
 END;
@@ -63,9 +63,9 @@ END;
 CREATE OR REPLACE  TRIGGER ilustrator_surname_validate_trigger
 before insert or update of name,surname on ilustrator 
 for each row
-WHEN(:NEW.surname like [0-9])
 Declare
 Begin 
+IF (REGEXP_INSTR(:NEW.surname, '[[:digit:]]')>0) then
 RAISE_APPLICATION_ERROR(-20001, 'Zły format nazwiska!');
 END IF;
 END;
