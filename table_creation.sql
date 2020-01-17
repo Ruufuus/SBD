@@ -22,8 +22,8 @@ birthdate DATE null,
 gender VARCHAR(1) null ,
 CONSTRAINT author_gender_constraint  check ((gender in ('K', 'M') OR gender is null)),
 CONSTRAINT author_pk PRIMARY KEY (author_id),
-CONSTRAINT author_name_validation check name not like [0-9],
-CONSTRAINT author_surname_validation check surname not like [0-9]  
+CONSTRAINT author_name_validation check (REGEXP_INSTR(name, '[[:digit:]]')=0),
+CONSTRAINT author_surname_validation check (REGEXP_INSTR(surname, '[[:digit:]]')=0) 
 );
 
 
@@ -32,8 +32,8 @@ ilustrator_id NUMBER(10) NOT NULL,
 name VARCHAR(256) NOT NULL,
 surname VARCHAR(256) NOT NULL,
 CONSTRAINT ilustrator_pk PRIMARY KEY (ilustrator_id),
-CONSTRAINT ilustrator_name_validation check name not like [0-9],
-CONSTRAINT ilustrator_surname_validation check surname not like [0-9] 
+CONSTRAINT ilustrator_name_validation check (REGEXP_INSTR(name, '[[:digit:]]')=0),
+CONSTRAINT ilustrator_surname_validation check (REGEXP_INSTR(surname, '[[:digit:]]')=0) 
 );
 
 CREATE TABLE medium(
