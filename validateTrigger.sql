@@ -30,6 +30,46 @@ if vCzyIstnieje>0 then
 END IF;
 END;
 /
+CREATE OR REPLACE  TRIGGER author_name_validate_trigger
+before insert or update of name,surname on author 
+for each row
+WHEN(:NEW.name like [0-9])
+Declare
+Begin 
+RAISE_APPLICATION_ERROR(-20001, 'Zły format imienia!');
+END IF;
+END;
+/
+CREATE OR REPLACE  TRIGGER author_surname_validate_trigger
+before insert or update of name,surname on author 
+for each row
+WHEN(:NEW.surname like [0-9])
+Declare
+Begin 
+RAISE_APPLICATION_ERROR(-20001, 'Zły format nazwiska!');
+END IF;
+END;
+/       
+CREATE OR REPLACE  TRIGGER ilustrator_name_validate_trigger
+before insert or update of name,surname on ilustrator 
+for each row
+WHEN(:NEW.name like [0-9])
+Declare
+Begin 
+RAISE_APPLICATION_ERROR(-20001, 'Zły format imienia!');
+END IF;
+END;
+/
+CREATE OR REPLACE  TRIGGER ilustrator_surname_validate_trigger
+before insert or update of name,surname on ilustrator 
+for each row
+WHEN(:NEW.surname like [0-9])
+Declare
+Begin 
+RAISE_APPLICATION_ERROR(-20001, 'Zły format nazwiska!');
+END IF;
+END;
+/                           
 CREATE OR REPLACE  TRIGGER episode_validate_trigger
 before insert or update of title,medium_id on episode 
 for each row
