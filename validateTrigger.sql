@@ -30,33 +30,39 @@ if vCzyIstnieje>0 then
 END IF;
 END;
 /
-CREATE OR REPLACE  TRIGGER author_name_validate_trigger
+CREATE OR REPLACE  TRIGGER author_name_surname_validate_trigger
 before insert or update of name,surname on author 
 for each row
 Declare
 Begin 
-IF (REGEXP_INSTR(:NEW.name, '[[:digit:]]')>0) then
-RAISE_APPLICATION_ERROR(-20001, 'Zły format imienia!');
-END IF;
-END;
-/
-CREATE OR REPLACE  TRIGGER author_surname_validate_trigger
-before insert or update of name,surname on author 
-for each row
-Declare
-Begin 
+IF (REGEXP_INSTR(:NEW.surname, '[[:digit:]]')>0 and REGEXP_INSTR(:NEW.name, '[[:digit:]]')>0) then
+RAISE_APPLICATION_ERROR(-20001, 'Zły format imienia i nazwiska!');
+ELSE 
 IF (REGEXP_INSTR(:NEW.surname, '[[:digit:]]')>0) then
 RAISE_APPLICATION_ERROR(-20001, 'Zły format nazwiska!');
+ELSE 
+IF(REGEXP_INSTR(:NEW.name, '[[:digit:]]')>0) then
+RAISE_APPLICATION_ERROR(-20001, 'Zły format imienia!');
+END IF;
+END IF;
 END IF;
 END;
-/       
-CREATE OR REPLACE  TRIGGER ilustrator_name_validate_trigger
+/      
+CREATE OR REPLACE  TRIGGER ilustrator_name_surname_validate_trigger
 before insert or update of name,surname on ilustrator 
 for each row
 Declare
 Begin 
-IF (REGEXP_INSTR(:NEW.name, '[[:digit:]]')>0) then
+IF (REGEXP_INSTR(:NEW.surname, '[[:digit:]]')>0 and REGEXP_INSTR(:NEW.name, '[[:digit:]]')>0) then
+RAISE_APPLICATION_ERROR(-20001, 'Zły format imienia i nazwiska!');
+ELSE 
+IF (REGEXP_INSTR(:NEW.surname, '[[:digit:]]')>0) then
+RAISE_APPLICATION_ERROR(-20001, 'Zły format nazwiska!');
+ELSE 
+IF(REGEXP_INSTR(:NEW.name, '[[:digit:]]')>0) then
 RAISE_APPLICATION_ERROR(-20001, 'Zły format imienia!');
+END IF;
+END IF;
 END IF;
 END;
 /
