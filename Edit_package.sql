@@ -101,7 +101,8 @@ IS BEGIN
     volumes=pvolumes,
     chapters=pchapters,
     publishing_type=ppublishing_type,
-    published_date=ppublished_date
+    published_date=ppublished_date,
+    ilustrator_id=pilustrator_id
 	WHERE
 	id=pid AND medium.medium='Manga';
 END;
