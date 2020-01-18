@@ -194,3 +194,12 @@ Declare
 BEGIN
 RAISE_APPLICATION_ERROR(-20001, 'Wybrales zla date!');
 END;
+/
+create or replace TRIGGER author_validate_birthdate_trigger
+before insert or update of birthdate on author 
+for each row
+WHEN(NEW.birthdate>sysdate)
+Declare
+BEGIN
+RAISE_APPLICATION_ERROR(-20001, 'Wybrales zla date!');
+END;
