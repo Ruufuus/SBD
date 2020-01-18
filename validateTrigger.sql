@@ -176,3 +176,21 @@ if vCzyIstnieje>0 then
     RAISE_APPLICATION_ERROR(-20001, 'Roździał o podanej nazwie już istnieje dla danego Tomu!');
 END IF;
 END;
+/
+CREATE OR REPLACE  TRIGGER consume_media_validate_trigger
+before insert or update of consume_date on consumed_media 
+for each row
+WHEN(NEW.consume_date>sysdate)
+Declare
+BEGIN
+RAISE_APPLICATION_ERROR(-20001, 'Wybrales zla date!');
+END;
+/
+CREATE OR REPLACE  TRIGGER review_validate_trigger
+before insert or update of review_date on review 
+for each row
+WHEN(NEW.review_date>sysdate)
+Declare
+BEGIN
+RAISE_APPLICATION_ERROR(-20001, 'Wybrales zla date!');
+END;
