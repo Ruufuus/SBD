@@ -66,16 +66,7 @@ END IF;
 END IF;
 END;
 /
-CREATE OR REPLACE  TRIGGER ilustrator_surname_validate_trigger
-before insert or update of name,surname on ilustrator 
-for each row
-Declare
-Begin 
-IF (REGEXP_INSTR(:NEW.surname, '[[:digit:]]')>0) then
-RAISE_APPLICATION_ERROR(-20001, 'Zły format nazwiska!');
-END IF;
-END;
-/                           
+                      
 CREATE OR REPLACE  TRIGGER episode_validate_unique_trigger
 before insert or update of title,medium_id on episode 
 for each row
