@@ -1,25 +1,25 @@
-DROP SEQUENCE seq_episode_id;
-DROP SEQUENCE seq_volume_id;
-DROP SEQUENCE seq_chapter_id;
-DROP SEQUENCE seq_author_id;
-DROP SEQUENCE seq_medium_id;
-DROP SEQUENCE seq_ilustrator_id; 
+DROP SEQUENCE episode_id_sequence;
+DROP SEQUENCE volume_id_sequence;
+DROP SEQUENCE chapter_id_sequence;
+DROP SEQUENCE author_id_sequence;
+DROP SEQUENCE medium_id_sequence;
+DROP SEQUENCE ilustrator_id_sequence; 
 
-CREATE SEQUENCE seq_episode_id
+CREATE SEQUENCE episode_id_sequence
     MINVALUE 0
     MAXVALUE 10000000000
     START WITH 0
     INCREMENT BY 1
     CACHE 20;
     
-CREATE SEQUENCE seq_volume_id
+CREATE SEQUENCE volume_id_sequence
     MINVALUE 0
     MAXVALUE 10000000000
     START WITH 0
     INCREMENT BY 1
     CACHE 20;
     
-CREATE SEQUENCE seq_chapter_id
+CREATE SEQUENCE chapter_id_sequence
     MINVALUE 0
     MAXVALUE 10000000000
     START WITH 0
@@ -27,21 +27,21 @@ CREATE SEQUENCE seq_chapter_id
     CACHE 20;
 
     
-CREATE SEQUENCE seq_author_id
+CREATE SEQUENCE author_id_sequence
     MINVALUE 0
     MAXVALUE 10000000000
     START WITH 0
     INCREMENT BY 1
     CACHE 20;
 
-CREATE SEQUENCE seq_medium_id
+CREATE SEQUENCE medium_id_sequence
     MINVALUE 0
     MAXVALUE 10000000000
     START WITH 0
     INCREMENT BY 1
     CACHE 20;    
 
-CREATE SEQUENCE seq_ilustrator_id
+CREATE SEQUENCE ilustrator_id_sequence
     MINVALUE 0
     MAXVALUE 10000000000
     START WITH 0
