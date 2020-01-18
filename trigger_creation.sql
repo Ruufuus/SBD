@@ -1,4 +1,4 @@
-CREATE OR REPLACE TRIGGER trig_chapter_id
+CREATE OR REPLACE TRIGGER chapter_id_trigger
 BEFORE
 INSERT on Chapter
 FOR EACH ROW
@@ -9,7 +9,7 @@ if :new.chapter_id is null then
 end if;
 END;
 /
-CREATE OR REPLACE TRIGGER trig_volume_id
+CREATE OR REPLACE TRIGGER volume_id_trigger
 BEFORE
 INSERT on Volume
 FOR EACH ROW
@@ -20,7 +20,7 @@ if :new.volume_id is null then
 end if;
 END;
 /
-CREATE OR REPLACE TRIGGER trig_episode_id
+CREATE OR REPLACE TRIGGER episode_id_trigger
 BEFORE
 INSERT on Episode
 FOR EACH ROW
@@ -31,7 +31,7 @@ if :new.ep_id is null then
 end if;
 END;
 /
-CREATE OR REPLACE TRIGGER trig_author_id
+CREATE OR REPLACE TRIGGER author_id_trigger
 BEFORE
 INSERT on Author
 FOR EACH ROW
@@ -42,7 +42,7 @@ if :new.author_id is null then
 end if;
 END;
 /
-CREATE OR REPLACE TRIGGER trig_ilustrator_id
+CREATE OR REPLACE TRIGGER ilustrator_id_trigger
 BEFORE
 INSERT on Ilustrator
 FOR EACH ROW
@@ -53,7 +53,7 @@ if :new.ilustrator_id is null then
 end if;
 END;
 /
-CREATE OR REPLACE TRIGGER trig_medium_id
+CREATE OR REPLACE TRIGGER medium_id_trigger
 BEFORE
 INSERT on Medium
 FOR EACH ROW
