@@ -5,7 +5,7 @@ FOR EACH ROW
 DECLARE
 BEGIN
 if :new.chapter_id is null then
-    :new.chapter_id:=seq_chapter_id.NEXTVAL;
+    :new.chapter_id:=chapter_id_sequence.NEXTVAL;
 end if;
 END;
 /
@@ -16,7 +16,7 @@ FOR EACH ROW
 DECLARE
 BEGIN
 if :new.volume_id is null then
-    :new.volume_id:=seq_volume_id.NEXTVAL;
+    :new.volume_id:=volume_id_sequence.NEXTVAL;
 end if;
 END;
 /
@@ -27,7 +27,7 @@ FOR EACH ROW
 DECLARE
 BEGIN
 if :new.ep_id is null then
-    :new.ep_id:=seq_episode_id.NEXTVAL;
+    :new.ep_id:=episode_id_sequence.NEXTVAL;
 end if;
 END;
 /
@@ -38,7 +38,7 @@ FOR EACH ROW
 DECLARE
 BEGIN
 if :new.author_id is null then
-    :new.author_id:=seq_author_id.NEXTVAL;
+    :new.author_id:=author_id_sequence.NEXTVAL;
 end if;
 END;
 /
@@ -49,7 +49,7 @@ FOR EACH ROW
 DECLARE
 BEGIN
 if :new.ilustrator_id is null then
-    :new.ilustrator_id:=seq_ilustrator_id.NEXTVAL;
+    :new.ilustrator_id:=ilustrator_id_sequence.NEXTVAL;
 end if;
 END;
 /
@@ -60,6 +60,6 @@ FOR EACH ROW
 DECLARE
 BEGIN
 if :new.id is null then
-    :new.id:=seq_medium_id.NEXTVAL;
+    :new.id:=medium_id_sequence.NEXTVAL;
 end if;
 END;
