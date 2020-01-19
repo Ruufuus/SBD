@@ -63,3 +63,14 @@ if :new.id is null then
     :new.id:=medium_id_sequence.NEXTVAL;
 end if;
 END;
+/
+CREATE OR REPLACE  TRIGGER studio_update_trigger
+after update of name on studio 
+for each row
+Declare
+Begin 
+update medium
+set studio_name=:new.name
+where studio_name=:old.name;
+END;
+/
