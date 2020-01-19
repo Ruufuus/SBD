@@ -1,5 +1,5 @@
 CREATE OR REPLACE  TRIGGER medium_validate_unique_trigger
-before insert or update of title on medium 
+before insert on medium 
 for each row
 Declare
 vCzyIstnieje numeric;
@@ -19,7 +19,7 @@ END IF;
 END;
 /
 CREATE OR REPLACE  TRIGGER author_validate_unique_trigger
-before insert or update of name,surname on author 
+before insert on author 
 for each row
 Declare
 vCzyIstnieje numeric;
@@ -31,7 +31,7 @@ END IF;
 END;
 /
 CREATE OR REPLACE  TRIGGER author_validate_name_surname_trigger
-before insert or update of name,surname on author 
+before insert or update  of name,surname on author 
 for each row
 Declare
 Begin 
@@ -49,7 +49,7 @@ END IF;
 END;
 /      
 CREATE OR REPLACE  TRIGGER ilustrator_validate_name_surname_trigger
-before insert or update of name,surname on ilustrator 
+before insert or update  of name,surname on ilustrator 
 for each row
 Declare
 Begin 
@@ -68,7 +68,7 @@ END;
 /
                       
 CREATE OR REPLACE  TRIGGER episode_validate_unique_trigger
-before insert or update of title,medium_id on episode 
+before insert  on episode 
 for each row
 Declare
 vCzyIstnieje numeric;
@@ -80,7 +80,7 @@ END IF;
 END;
 /
 CREATE OR REPLACE  TRIGGER ilustrator_validate_unique_trigger
-before insert or update of name,surname on ilustrator 
+before insert on ilustrator 
 for each row
 Declare
 vCzyIstnieje numeric;
@@ -92,7 +92,7 @@ END IF;
 END;
 /
 CREATE OR REPLACE  TRIGGER studio_validate_unique_trigger
-before insert or update of name on studio 
+before insert on studio 
 for each row
 Declare
 vCzyIstnieje numeric;
@@ -104,7 +104,7 @@ END IF;
 END;
 /
 CREATE OR REPLACE  TRIGGER review_validate_unique_trigger
-before insert or update of review_date,medium_id,username on review 
+before insert  on review 
 for each row
 Declare
 vCzyIstnieje numeric;
@@ -116,7 +116,7 @@ END IF;
 END;
 /
 CREATE OR REPLACE  TRIGGER user_info_validate_unique_trigger
-before insert or update of username on user_info 
+before insert on user_info 
 for each row
 Declare
 vCzyIstnieje numeric;
@@ -129,7 +129,7 @@ END;
 /
 
 CREATE OR REPLACE  TRIGGER consumed_media_validate_unique_trigger
-before insert or update of consume_date,medium_id,username on consumed_media 
+before insert  on consumed_media 
 for each row
 Declare
 vCzyIstnieje numeric;
@@ -143,7 +143,7 @@ END;
 
 
 CREATE OR REPLACE  TRIGGER volume_validate_unique_trigger
-before insert or update of volume_number,medium_id on volume 
+before insert on volume 
 for each row
 Declare
 vCzyIstnieje numeric;
@@ -155,7 +155,7 @@ END IF;
 END;
 /
 CREATE OR REPLACE  TRIGGER chapter_validate_unique_trigger
-before insert or update of title on chapter 
+before insert on chapter 
 for each row
 WHEN(NEW.title is not null)
 Declare
