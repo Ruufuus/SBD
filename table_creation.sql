@@ -23,7 +23,8 @@ gender VARCHAR(1) null ,
 CONSTRAINT author_gender_constraint  check ((gender in ('K', 'M') OR gender is null)),
 CONSTRAINT author_pk PRIMARY KEY (author_id),
 CONSTRAINT author_name_validation check (REGEXP_INSTR(name, '[[:digit:]]')=0),
-CONSTRAINT author_surname_validation check (REGEXP_INSTR(surname, '[[:digit:]]')=0) 
+CONSTRAINT author_surname_validation check (REGEXP_INSTR(surname, '[[:digit:]]')=0),
+CONSTRAINT author_name_surname_uk UNIQUE(name,surname)
 );
 
 
@@ -33,7 +34,8 @@ name VARCHAR(256) NOT NULL,
 surname VARCHAR(256) NOT NULL,
 CONSTRAINT ilustrator_pk PRIMARY KEY (ilustrator_id),
 CONSTRAINT ilustrator_name_validation check (REGEXP_INSTR(name, '[[:digit:]]')=0),
-CONSTRAINT ilustrator_surname_validation check (REGEXP_INSTR(surname, '[[:digit:]]')=0) 
+CONSTRAINT ilustrator_surname_validation check (REGEXP_INSTR(surname, '[[:digit:]]')=0),
+CONSTRAINT ilustrator_name_surname_uk UNIQUE(name,surname)
 );
 
 CREATE TABLE medium(
@@ -60,7 +62,8 @@ CONSTRAINT episodes_number_constraint check (episodes is NULL OR episodes > 0),
 CONSTRAINT anime_type_constraint check ((type in ('ONA','OVA','TV', 'MOVIE', 'SPECIAL') OR type is NULL)),
 CONSTRAINT medium_medium_constraint check (medium in ('ANIME','MANGA','LIGHT NOVEL')),
 CONSTRAINT medium_integrity_constraint check((medium = 'ANIME' AND studio_name IS NOT NULL) OR ((medium IN ('MANGA', 'LIGHT NOVEL')) AND author_id IS NOT NULL)),
-CONSTRAINT medium_pk PRIMARY KEY (id)
+CONSTRAINT medium_pk PRIMARY KEY (id),
+CONSTRAINT medium_unique UNIQUE(medium,title)
 );
 
 
@@ -69,7 +72,8 @@ volume_id NUMBER(10) NOT NULL,
 volume_number NUMBER(3) NOT NULL,
 medium_id NUMBER(10) NOT NULL,
 CONSTRAINT volume_pk PRIMARY KEY (volume_id),
-CONSTRAINT fk_volume_medium_id FOREIGN KEY (medium_id) REFERENCES medium(id) ON DELETE CASCADE
+CONSTRAINT fk_volume_medium_id FOREIGN KEY (medium_id) REFERENCES medium(id) ON DELETE CASCADE,
+CONSTRAINT volume_unique UNIQUE(medium_id,volume_number)
 );
 
 CREATE TABLE chapter(
@@ -77,7 +81,8 @@ chapter_id NUMBER(10) NOT NULL,
 title VARCHAR(256) NULL,
 volume_id NUMBER(10) NOT NULL,
 CONSTRAINT chapter_pk PRIMARY KEY (chapter_id),
-CONSTRAINT fk_volume_id FOREIGN KEY (volume_id) REFERENCES volume(volume_id) ON DELETE CASCADE
+CONSTRAINT fk_volume_id FOREIGN KEY (volume_id) REFERENCES volume(volume_id) ON DELETE CASCADE,
+CONSTRAINT chapter_unique UNIQUE(volume_id,title)
 );
 
 CREATE TABLE episode(
@@ -86,7 +91,8 @@ title VARCHAR(256) NOT NULL,
 episode_duration NUMBER(3) NULL,
 medium_id NUMBER(10)NOT NULL,
 CONSTRAINT episode_pk PRIMARY KEY (ep_id),
-CONSTRAINT fk_episode_medium_id FOREIGN KEY (medium_id) REFERENCES Medium(id) on DELETE CASCADE
+CONSTRAINT fk_episode_medium_id FOREIGN KEY (medium_id) REFERENCES Medium(id) on DELETE CASCADE,
+CONSTRAINT episode_unique UNIQUE(medium_id,title)
 );
 
 
