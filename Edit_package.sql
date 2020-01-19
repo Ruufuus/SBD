@@ -98,11 +98,17 @@ ppublishing_type Medium.publishing_type%type default null,
 ppublished_date Medium.published_date%type default null,
 pilustrator_id Medium.ilustrator_id%type default null
 )
-IS vExist numeric;
+IS 
+vExist numeric;
+vUnique numeric;
 BEGIN 
     select count(*) into vExist from MEDIUM where id=pid AND medium.medium='MANGA';
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrana manga nie istnieje w bazie danych!');
+    end if;
+    select count(*) into vUnique from MEDIUM where title=ptitle AND medium.medium='MANGA';
+    if(vUnique > 0) then 
+    RAISE_APPLICATION_ERROR(-20001, 'Manga o podanym tytule już istnieje w bazie danych!');
     end if;
     UPDATE MEDIUM SET
     title=ptitle,
@@ -114,7 +120,7 @@ BEGIN
     published_date=ppublished_date,
     ilustrator_id=pilustrator_id
 	WHERE
-	id=pid AND medium.medium='Manga';
+	id=pid AND medium.medium='MANGA';
 END;
 
 PROCEDURE edit_Anime
@@ -127,10 +133,15 @@ pepisodes Medium.episodes%type default null,
 ptype Medium.type%type default null
 )
 IS vExist numeric;
+vUnique numeric;
 BEGIN 
     select count(*) into vExist from MEDIUM where id=pid AND medium.medium='ANIME';
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrane anime nie istnieje w bazie danych!');
+    end if;
+    select count(*) into vUnique from MEDIUM where title=ptitle AND medium.medium='ANIME';
+    if(vUnique > 0) then 
+    RAISE_APPLICATION_ERROR(-20001, 'Anime o podanym tytule już istnieje w bazie danych!');
     end if;
     UPDATE MEDIUM SET
     title=ptitle,
@@ -152,10 +163,15 @@ pvolumes Medium.volumes%type default null,
 ppublished_date Medium.published_date%type default null
 )
 IS vExist numeric;
+vUnique numeric;
 BEGIN 
     select count(*) into vExist from MEDIUM where id=pid AND medium.medium='LIGHT NOVEL';
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrana Light Novel nie istnieje w bazie danych!');
+    end if;
+    select count(*) into vUnique from MEDIUM where title=ptitle AND medium.medium='LIGHT NOVEL';
+    if(vUnique > 0) then 
+    RAISE_APPLICATION_ERROR(-20001, 'Light Novel o podanym tytule już istnieje w bazie danych!');
     end if;
     UPDATE MEDIUM SET
     title=ptitle,
@@ -164,7 +180,7 @@ BEGIN
     volumes=pvolumes,
     published_date=ppublished_date
 	where
-	id=pid AND medium.medium='Light Novel';
+	id=pid AND medium.medium='LIGHT NOVEL';
 END;
 
 PROCEDURE edit_Volume
@@ -175,10 +191,15 @@ pmedium_id Volume.medium_id%type
 )
 IS 
 vExist numeric;
+vUnique numeric;
 BEGIN 
     select count(*) into vExist from volume WHERE volume_id=pvolume_id;
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrany tom nie istnieje w bazie danych!');
+    SELECT count(*) into vUnique FROM volume where volume_number=pvolume_number and medium_id=pmedium_id;
+    end if;
+    if(vUnique > 0) then 
+    RAISE_APPLICATION_ERROR(-20001, 'Tom o podanym numerze oraz przypisanym do niego medium już istnieje w bazie danych!');
     end if;
     UPDATE Volume SET
     volume_number=pvolume_number,
@@ -194,10 +215,15 @@ pname2 studio.name%type
 )
 IS 
 vExist numeric;
+vUnique numeric;
 BEGIN 
     select count(*) into vExist from studio WHERE name=pname;
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrane studio nie istnieje w bazie danych!');
+    end if;
+    select count(*) into vUnique from studio where name=pname2;
+    if(vUnique>0) then
+    RAISE_APPLICATION_ERROR(-20001, 'Studio o podanej nazwie już istnieje w bazie danych!');
     end if;
     UPDATE studio SET
     name=pname2
@@ -213,10 +239,15 @@ pvolume_id Chapter.volume_id%type
 )
 IS 
 vExist numeric; 
+vUnique numeric;
 BEGIN 
     select count(*) into vExist from chapter WHERE chapter_id=pchapter_id;
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrany roździal nie istnieje w bazie danych!');
+    end if;
+    SELECT count(*) into vUnique FROM chapter where title=ptitle and volume_id=pvolume_id;
+    if(vUnique > 0)then
+    RAISE_APPLICATION_ERROR(-20001, 'Roździał o podanej nazwie już istnieje dla danego Tomu!');
     end if;
     UPDATE Chapter SET
     title = ptitle, 
@@ -234,11 +265,16 @@ pmedium_id Episode.medium_id%type
 )
 IS 
 vExist numeric; 
+vUnique numeric;
 BEGIN 
     select count(*) into vExist from Episode WHERE pep_id=ep_id;
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrany odcinek nie istnieje w bazie danych!');
     end if;
+    SELECT count(ep_id) into vUnique FROM episode where title=ptitle and medium_id=pmedium_id;
+    if (vUnique>0) then
+    RAISE_APPLICATION_ERROR(-20001, 'Odcinek o podanej nazwie dla danego anime już istnieje w bazie danych!');
+END IF;
     update Episode SET
     title = ptitle,
     episode_duration = pepisode_duration,
@@ -256,12 +292,17 @@ psurname Ilustrator.surname%type
 )
 IS 
 vExist numeric; 
+vUnique numeric;
 BEGIN 
     select count(*) into vExist from Ilustrator  WHERE 
 	pilustrator_id=ilustrator_id;
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrany ilustrator nie istnieje w bazie danych!');
     end if;
+    SELECT count(*) into vUnique FROM ilustrator where name=pname and surname=psurname;
+    if (vUnique>0) then
+        RAISE_APPLICATION_ERROR(-20001, 'Ilustrator o podanym imieniu i nazwisku już istnieje w bazie danych!');
+END IF;
     UPDATE Ilustrator SET
     name=pname,surname=psurname
 	WHERE
@@ -278,12 +319,17 @@ pgender Author.gender%type default null
 )
 IS 
 vExist numeric;
+vUnique numeric;
 BEGIN
 select count(*) into vExist from Author  WHERE 
 	pauthor_id = author_id;
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrany autor nie istnieje w bazie danych!');
     end if;
+    SELECT count(author_id) into vUnique FROM author where name=pname and surname=psurname;
+if (vUnique>0) then
+    RAISE_APPLICATION_ERROR(-20001, 'Autor o podanym imieniu i nazwisku już istnieje w bazie danych!');
+END IF;
 UPDATE Author SET
     name=pname,
     surname=psurname,
@@ -325,6 +371,7 @@ ppassword user_info.password%type
 )
 IS 
 vExist numeric;
+vUnique numeric;
 BEGIN
 select count(*) into vExist from user_info  WHERE
 	pusername = username;
