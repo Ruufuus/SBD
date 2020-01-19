@@ -41,6 +41,11 @@ pchapter_id Chapter.chapter_id%type,
 ptitle Chapter.title%type,
 pvolume_id Chapter.volume_id%type
 );
+PROCEDURE edit_Studio
+(
+pname studio.name%type,
+pname2 studio.name%type
+);
 PROCEDURE edit_Episode
 (
 pep_id Episode.ep_id%type,
@@ -182,6 +187,24 @@ BEGIN
 	volume_id=pvolume_id;
 END;
 
+PROCEDURE edit_Studio
+(
+pname studio.name%type,
+pname2 studio.name%type
+)
+IS 
+vExist numeric;
+BEGIN 
+    select count(*) into vExist from studio WHERE name=pname;
+    if(vExist = 0) then 
+    RAISE_APPLICATION_ERROR(-20002, 'Wybrane studio nie istnieje w bazie danych!');
+    end if;
+    UPDATE studio SET
+    name=pname2
+	WHERE
+	name=pname;
+END;
+
 PROCEDURE edit_Chapter
 (
 pchapter_id Chapter.chapter_id%type,
@@ -270,6 +293,7 @@ UPDATE Author SET
 	pauthor_id = author_id;
 END;
 
+
 PROCEDURE edit_review
 (
 preview_date Review.Review_Date%type,
@@ -285,7 +309,7 @@ select count(*) into vExist from REVIEW  WHERE
 	pmedium_id = medium_id and
 	pusername = username;
     if(vExist = 0) then 
-    RAISE_APPLICATION_ERROR(-20002, 'Wybrane studio nie istnieje w bazie danych!');
+    RAISE_APPLICATION_ERROR(-20002, 'Wybrana recenzja nie istnieje w bazie danych!');
     end if;
 UPDATE review SET
     review_content = preview_content
