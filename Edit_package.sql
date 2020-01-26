@@ -73,14 +73,28 @@ PROCEDURE edit_review
 preview_date Review.Review_Date%type,
 preview_content Review.review_content%type,
 pmedium_id Review.medium_id%type,
-pusername Review.username%type
+pusername Review.username%type,
+pmedium_id2 Review.medium.id%type,
+pusername2 Review.username%type,
+preview_date2 Review.Review_date%type
+);
+
+PROCEDURE edit_consumed_media
+(
+pconsume_date Consumed_media.consume_date%type,
+pmedium_id Consumed_media.medium_id%type,
+pusername Consumed_media.username%type,
+pmedium_id2 Consumed_media.medium.id%type,
+pusername2 Consumed_media.username%type,
+pconsume_date2 Consumed_media.consume_date%type
 );
 
 
 PROCEDURE edit_user_info
 (
 pusername user_info.username%type,
-ppassword user_info.password%type
+ppassword user_info.password%type,
+pusername2 user_info.username%type
 );
 
 END edit_package;
@@ -345,9 +359,14 @@ PROCEDURE edit_review
 preview_date Review.Review_Date%type,
 preview_content Review.review_content%type,
 pmedium_id Review.medium_id%type,
-pusername Review.username%type
+pusername Review.username%type,
+pmedium_id2 Review.medium.id%type,
+pusername2 Review.username%type,
+preview_date2 Review.Review_date%type
 )
 IS 
+
+vUnique numeric;
 vExist numeric;
 BEGIN
 select count(*) into vExist from REVIEW  WHERE
@@ -357,17 +376,61 @@ select count(*) into vExist from REVIEW  WHERE
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrana recenzja nie istnieje w bazie danych!');
     end if;
+    SELECT count(*) into vUnique FROM review where username=pusername and medium_id=pmedium_id and review_date=preview_date and 
+    (preview_date!=preview_date2 or pusername!=pusername2 or pmedium_id!=pmedium_id2);
+if (vUnique>0) then
+    RAISE_APPLICATION_ERROR(-20001, 'Recenzja o podanej dacie, nazwie użytkownika oraz przypisanej do nich pozycji już istnieje w bazie danych!');
+END IF;
 UPDATE review SET
-    review_content = preview_content
+    review_content = preview_content,
+    review_date=preview_date2,
+    username=pusername2,
+    medium_id=pmedium_id
 	WHERE
 	username=pusername and review_date=preview_date and medium_id=pmedium_id;
+END;
+
+PROCEDURE edit_consumed_media
+(
+pconsume_date Consumed_media.consume_date%type,
+pmedium_id Consumed_media.medium_id%type,
+pusername Consumed_media.username%type,
+pmedium_id2 Consumed_media.medium.id%type,
+pusername2 Consumed_media.username%type,
+pconsume_date2 Consumed_media.consume_date%type
+)
+IS 
+
+vUnique numeric;
+vExist numeric;
+BEGIN
+select count(*) into vExist from Consumed_media  WHERE
+	pconsume_date=consume_date and
+	pmedium_id = medium_id and
+	pusername = username;
+    if(vExist = 0) then 
+    RAISE_APPLICATION_ERROR(-20002, 'Wybrana recenzja nie istnieje w bazie danych!');
+    end if;
+    SELECT count(*) into vUnique FROM Consumed_media where username=pusername and medium_id=pmedium_id and consume_date=pconsume_date and 
+    (pconsume_date!=pconsume_date or pusername!=pusername2 or pmedium_id!=pmedium_id2);
+if (vUnique>0) then
+    RAISE_APPLICATION_ERROR(-20001, 'Obejrzana pozycja o podanej dacie, nazwie użytkownika oraz przypisanym do niego medium już istnieje w bazie danych!');
+END IF;
+UPDATE review SET
+    review_content = preview_content,
+    consume_date=pconsume_date2,
+    username=pusername2,
+    medium_id=pmedium_id
+	WHERE
+	username=pusername and consume_date=pconsume_date and medium_id=pmedium_id;
 END;
 
 
 PROCEDURE edit_user_info
 (
 pusername user_info.username%type,
-ppassword user_info.password%type
+ppassword user_info.password%type,
+pusername2 user_info.username%type
 )
 IS 
 vExist numeric;
@@ -378,8 +441,13 @@ select count(*) into vExist from user_info  WHERE
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrany użykownik nie istnieje w bazie danych!');
     end if;
+    SELECT count(*) into vUnique FROM user_info where username=pusername and pusername!=pusername2;
+if (vUnique>0) then
+    RAISE_APPLICATION_ERROR(-20001, 'Obejrzana pozycja o podanej dacie, nazwie użytkownika oraz przypisanym do niego medium już istnieje w bazie danych!');
+END IF;
 UPDATE user_info SET
-    password=ppassword
+    password=ppassword,
+    username=pusername2
 	WHERE
 	username=pusername;
 END;
