@@ -376,7 +376,7 @@ select count(*) into vExist from REVIEW  WHERE
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrana recenzja nie istnieje w bazie danych!');
     end if;
-    SELECT count(*) into vUnique FROM review where username=pusername and medium_id=pmedium_id and review_date=preview_date and 
+    SELECT count(*) into vUnique FROM review where username=pusername2 and medium_id=pmedium_id2 and review_date=preview_date2 and 
     (preview_date!=preview_date2 or pusername!=pusername2 or pmedium_id!=pmedium_id2);
 if (vUnique>0) then
     RAISE_APPLICATION_ERROR(-20001, 'Recenzja o podanej dacie, nazwie użytkownika oraz przypisanej do nich pozycji już istnieje w bazie danych!');
@@ -411,7 +411,7 @@ select count(*) into vExist from Consumed_media  WHERE
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrana recenzja nie istnieje w bazie danych!');
     end if;
-    SELECT count(*) into vUnique FROM Consumed_media where username=pusername and medium_id=pmedium_id and consume_date=pconsume_date and 
+    SELECT count(*) into vUnique FROM Consumed_media where username=pusername2 and medium_id=pmedium_id2 and consume_date=pconsume_date2 and 
     (pconsume_date!=pconsume_date2 or pusername!=pusername2 or pmedium_id!=pmedium_id2);
 if (vUnique>0) then
     RAISE_APPLICATION_ERROR(-20001, 'Obejrzana pozycja o podanej dacie, nazwie użytkownika oraz przypisanym do niego medium już istnieje w bazie danych!');
@@ -440,7 +440,7 @@ select count(*) into vExist from user_info  WHERE
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrany użykownik nie istnieje w bazie danych!');
     end if;
-    SELECT count(*) into vUnique FROM user_info where username=pusername and pusername!=pusername2;
+    SELECT count(*) into vUnique FROM user_info where username=pusername2 and pusername!=pusername2;
 if (vUnique>0) then
     RAISE_APPLICATION_ERROR(-20001, 'Obejrzana pozycja o podanej dacie, nazwie użytkownika oraz przypisanym do niego medium już istnieje w bazie danych!');
 END IF;
