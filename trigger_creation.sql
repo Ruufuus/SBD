@@ -74,3 +74,16 @@ set studio_name=:new.name
 where studio_name=:old.name;
 END;
 /
+CREATE OR REPLACE  TRIGGER user_info_update_trigger
+after update of username on user_info 
+for each row
+Declare
+Begin 
+update review
+set username=:new.username
+where username=:old.username;
+update consumed_media
+set username=:new.username
+where username=:old.username;
+END;
+/
