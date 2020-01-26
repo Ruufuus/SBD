@@ -106,7 +106,7 @@ BEGIN
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrana manga nie istnieje w bazie danych!');
     end if;
-    select count(*) into vUnique from MEDIUM where title=ptitle AND medium.medium='MANGA';
+    select count(*) into vUnique from MEDIUM where title=ptitle AND medium.medium='MANGA' and pid!=id;
     if(vUnique > 0) then 
     RAISE_APPLICATION_ERROR(-20001, 'Manga o podanym tytule już istnieje w bazie danych!');
     end if;
@@ -139,7 +139,7 @@ BEGIN
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrane anime nie istnieje w bazie danych!');
     end if;
-    select count(*) into vUnique from MEDIUM where title=ptitle AND medium.medium='ANIME';
+    select count(*) into vUnique from MEDIUM where title=ptitle AND medium.medium='ANIME' and pid!=id;
     if(vUnique > 0) then 
     RAISE_APPLICATION_ERROR(-20001, 'Anime o podanym tytule już istnieje w bazie danych!');
     end if;
@@ -169,7 +169,7 @@ BEGIN
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrana Light Novel nie istnieje w bazie danych!');
     end if;
-    select count(*) into vUnique from MEDIUM where title=ptitle AND medium.medium='LIGHT NOVEL';
+    select count(*) into vUnique from MEDIUM where title=ptitle AND medium.medium='LIGHT NOVEL' and pid!=id;
     if(vUnique > 0) then 
     RAISE_APPLICATION_ERROR(-20001, 'Light Novel o podanym tytule już istnieje w bazie danych!');
     end if;
@@ -196,7 +196,7 @@ BEGIN
     select count(*) into vExist from volume WHERE volume_id=pvolume_id;
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrany tom nie istnieje w bazie danych!');
-    SELECT count(*) into vUnique FROM volume where volume_number=pvolume_number and medium_id=pmedium_id;
+    SELECT count(*) into vUnique FROM volume where volume_number=pvolume_number and medium_id=pmedium_id and pvolume_id!=volume_id;
     end if;
     if(vUnique > 0) then 
     RAISE_APPLICATION_ERROR(-20001, 'Tom o podanym numerze oraz przypisanym do niego medium już istnieje w bazie danych!');
@@ -221,7 +221,7 @@ BEGIN
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrane studio nie istnieje w bazie danych!');
     end if;
-    select count(*) into vUnique from studio where name=pname2;
+    select count(*) into vUnique from studio where name=pname2 and pname!=pname2;
     if(vUnique>0) then
     RAISE_APPLICATION_ERROR(-20001, 'Studio o podanej nazwie już istnieje w bazie danych!');
     end if;
@@ -245,7 +245,7 @@ BEGIN
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrany roździal nie istnieje w bazie danych!');
     end if;
-    SELECT count(*) into vUnique FROM chapter where title=ptitle and volume_id=pvolume_id;
+    SELECT count(*) into vUnique FROM chapter where title=ptitle and volume_id=pvolume_id and pchapter_id!=chapter_id;
     if(vUnique > 0)then
     RAISE_APPLICATION_ERROR(-20001, 'Roździał o podanej nazwie już istnieje dla danego Tomu!');
     end if;
@@ -271,7 +271,7 @@ BEGIN
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrany odcinek nie istnieje w bazie danych!');
     end if;
-    SELECT count(ep_id) into vUnique FROM episode where title=ptitle and medium_id=pmedium_id;
+    SELECT count(ep_id) into vUnique FROM episode where title=ptitle and medium_id=pmedium_id and pep_id!=ep_id;
     if (vUnique>0) then
     RAISE_APPLICATION_ERROR(-20001, 'Odcinek o podanej nazwie dla danego anime już istnieje w bazie danych!');
 END IF;
@@ -299,7 +299,7 @@ BEGIN
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrany ilustrator nie istnieje w bazie danych!');
     end if;
-    SELECT count(*) into vUnique FROM ilustrator where name=pname and surname=psurname;
+    SELECT count(*) into vUnique FROM ilustrator where name=pname and surname=psurname and pilustrator_id!=ilustrator_id;
     if (vUnique>0) then
         RAISE_APPLICATION_ERROR(-20001, 'Ilustrator o podanym imieniu i nazwisku już istnieje w bazie danych!');
 END IF;
@@ -326,7 +326,7 @@ select count(*) into vExist from Author  WHERE
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrany autor nie istnieje w bazie danych!');
     end if;
-    SELECT count(author_id) into vUnique FROM author where name=pname and surname=psurname;
+    SELECT count(author_id) into vUnique FROM author where name=pname and surname=psurname and pauthor_id!=author_id;
 if (vUnique>0) then
     RAISE_APPLICATION_ERROR(-20001, 'Autor o podanym imieniu i nazwisku już istnieje w bazie danych!');
 END IF;
