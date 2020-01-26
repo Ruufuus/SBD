@@ -74,7 +74,7 @@ preview_date Review.Review_Date%type,
 preview_content Review.review_content%type,
 pmedium_id Review.medium_id%type,
 pusername Review.username%type,
-pmedium_id2 Review.medium.id%type,
+pmedium_id2 Review.medium_id%type,
 pusername2 Review.username%type,
 preview_date2 Review.Review_date%type
 );
@@ -84,7 +84,7 @@ PROCEDURE edit_consumed_media
 pconsume_date Consumed_media.consume_date%type,
 pmedium_id Consumed_media.medium_id%type,
 pusername Consumed_media.username%type,
-pmedium_id2 Consumed_media.medium.id%type,
+pmedium_id2 Consumed_media.medium_id%type,
 pusername2 Consumed_media.username%type,
 pconsume_date2 Consumed_media.consume_date%type
 );
@@ -360,7 +360,7 @@ preview_date Review.Review_Date%type,
 preview_content Review.review_content%type,
 pmedium_id Review.medium_id%type,
 pusername Review.username%type,
-pmedium_id2 Review.medium.id%type,
+pmedium_id2 Review.medium_id%type,
 pusername2 Review.username%type,
 preview_date2 Review.Review_date%type
 )
@@ -395,7 +395,7 @@ PROCEDURE edit_consumed_media
 pconsume_date Consumed_media.consume_date%type,
 pmedium_id Consumed_media.medium_id%type,
 pusername Consumed_media.username%type,
-pmedium_id2 Consumed_media.medium.id%type,
+pmedium_id2 Consumed_media.medium_id%type,
 pusername2 Consumed_media.username%type,
 pconsume_date2 Consumed_media.consume_date%type
 )
@@ -412,12 +412,11 @@ select count(*) into vExist from Consumed_media  WHERE
     RAISE_APPLICATION_ERROR(-20002, 'Wybrana recenzja nie istnieje w bazie danych!');
     end if;
     SELECT count(*) into vUnique FROM Consumed_media where username=pusername and medium_id=pmedium_id and consume_date=pconsume_date and 
-    (pconsume_date!=pconsume_date or pusername!=pusername2 or pmedium_id!=pmedium_id2);
+    (pconsume_date!=pconsume_date2 or pusername!=pusername2 or pmedium_id!=pmedium_id2);
 if (vUnique>0) then
     RAISE_APPLICATION_ERROR(-20001, 'Obejrzana pozycja o podanej dacie, nazwie użytkownika oraz przypisanym do niego medium już istnieje w bazie danych!');
 END IF;
-UPDATE review SET
-    review_content = preview_content,
+UPDATE consumed_media SET
     consume_date=pconsume_date2,
     username=pusername2,
     medium_id=pmedium_id
