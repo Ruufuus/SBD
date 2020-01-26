@@ -99,7 +99,7 @@ pusername2 user_info.username%type
 
 END edit_package;
 /
-CREATE OR REPLACE PACKAGE BODY edit_package IS
+create or replace PACKAGE BODY edit_package IS
 PROCEDURE edit_Manga
 (
 pid Medium.id%type,
@@ -210,8 +210,8 @@ BEGIN
     select count(*) into vExist from volume WHERE volume_id=pvolume_id;
     if(vExist = 0) then 
     RAISE_APPLICATION_ERROR(-20002, 'Wybrany tom nie istnieje w bazie danych!');
-    SELECT count(*) into vUnique FROM volume where volume_number=pvolume_number and medium_id=pmedium_id and pvolume_id!=volume_id;
     end if;
+    SELECT count(*) into vUnique FROM volume where volume_number=pvolume_number and medium_id=pmedium_id and pvolume_id!=volume_id;
     if(vUnique > 0) then 
     RAISE_APPLICATION_ERROR(-20001, 'Tom o podanym numerze oraz przypisanym do niego medium już istnieje w bazie danych!');
     end if;
