@@ -37,7 +37,7 @@ FUNCTION Manga_Count
 RETURN NUMBER IS
     vmanga_count NUMBER;
 BEGIN
-	select count(*) into vmanga_count from medium where medium.medium='Manga';
+	select count(*) into vmanga_count from medium where medium.medium='MANGA';
     RETURN vmanga_count;
 END manga_Count;
 
@@ -45,7 +45,7 @@ FUNCTION anime_Count
 RETURN NUMBER IS
     vanime_count NUMBER;
 BEGIN
-	select count(*) into vanime_count from medium where medium.medium='Anime';
+	select count(*) into vanime_count from medium where medium.medium='ANIME';
     RETURN vanime_count;
 END anime_Count;
 
@@ -53,7 +53,7 @@ FUNCTION light_novel_Count
 RETURN NUMBER IS
     vlight_novel_count NUMBER;
 BEGIN
-	select count(*) into vlight_novel_count from medium where medium.medium='Light novel';
+	select count(*) into vlight_novel_count from medium where medium.medium='LIGHT NOVEL';
     RETURN vlight_novel_count;
 END light_novel_Count;
 
